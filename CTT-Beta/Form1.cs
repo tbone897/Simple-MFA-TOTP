@@ -21,6 +21,9 @@ namespace CTT_Beta
         {
             InitializeComponent();
 
+            // Hide Main Form
+            this.Hide();
+
             // Check if config file exists 
             if (File.Exists(config)){
 
@@ -35,6 +38,9 @@ namespace CTT_Beta
                 GetCode();
 
             }
+
+            // Show Main Form
+            this.Show();
         }
 
         //
@@ -55,6 +61,7 @@ namespace CTT_Beta
             else
             {
                 Application.Exit();
+                Environment.Exit(0);
             }
         }
 
