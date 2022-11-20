@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTT-Beta", "CTT-Beta\CTT-Beta.csproj", "{F464CEED-9C03-4AED-98A7-AC0A083F9BEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFA TOTP", "MFA TOTP\MFA TOTP.csproj", "{24BE8C2C-0049-4189-96CA-D231802192CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F464CEED-9C03-4AED-98A7-AC0A083F9BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F464CEED-9C03-4AED-98A7-AC0A083F9BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F464CEED-9C03-4AED-98A7-AC0A083F9BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24BE8C2C-0049-4189-96CA-D231802192CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24BE8C2C-0049-4189-96CA-D231802192CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24BE8C2C-0049-4189-96CA-D231802192CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24BE8C2C-0049-4189-96CA-D231802192CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
