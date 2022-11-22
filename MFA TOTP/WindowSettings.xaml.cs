@@ -108,19 +108,25 @@ namespace MFA_TOTP
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             // 1st try writing to current directory
+            bool writeFail = true;
             try
             {
                 String config = Path.Combine(Directory.GetCurrentDirectory(), "config.totp");
                 File.WriteAllText(config, _Key);
+                writeFail = false;
             }catch(Exception ex) { }
 
+
             // 2nd try writing to appdata
-            try
+            if (writeFail)
             {
-                String config = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp");
-                File.WriteAllText(config, _Key);
+                try
+                {
+                    String config = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp");
+                    File.WriteAllText(config, _Key);
+                }
+                catch (Exception ex) { }
             }
-            catch(Exception ex) { }
 
             WindowTOTP windowTOTP = new WindowTOTP(_Key);
             windowTOTP.Left = this.Left;
