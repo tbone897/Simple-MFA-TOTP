@@ -36,7 +36,15 @@
                 <Label Name="Label1"></Label>
                 <Button x:Name="ButtonCopy" Click="ButtonCopy_Click" Padding="5,0,5,0">Copy</Button>
             </StackPanel>
-            <Button x:Name="ButtonSave"  Margin="10" Click="ButtonSave_Click" >Save</Button>        
+            <StackPanel Orientation="Horizontal">
+                <Label VerticalAlignment="Center">Pin</Label>
+                <TextBox x:Name="TextBox_Pin" Width="50" Margin="5"></TextBox>
+                <Label VerticalAlignment="Center">Path</Label>
+                <TextBox x:Name="TextBox_Path" Width="150" Margin="5"/>
+                <Button x:Name="ButtonBrowse"  Margin="10" Click="ButtonBrowse_Click"  >Browse</Button>
+                <Button x:Name="ButtonSave"  Margin="10" Click="ButtonSave_Click" >Save</Button>
+            </StackPanel>
+        
         </StackPanel>
         
         <StatusBar Grid.Row="1" Grid.Column="0">

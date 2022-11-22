@@ -30,7 +30,7 @@ namespace MFA_TOTP
             // First check Registry for file
             if (File.Exists(config_Registry))
             {
-                String key = File.ReadAllText(config_CurrentDir);
+                String key = File.ReadAllText(config_Registry);
 
                 WindowTOTP windowTOTP = new WindowTOTP(key);
                 windowTOTP.Show();

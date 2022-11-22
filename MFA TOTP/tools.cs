@@ -23,9 +23,16 @@ namespace MFA_TOTP
 
             // Serialize and write XML
             System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Tools));
-            FileStream file = File.Create(path);
-            writer.Serialize(file, tools);
-            file.Close();
+            try
+            {
+                FileStream file = File.Create(path);
+                writer.Serialize(file, tools);
+                file.Close();
+            }catch(Exception e)
+            {
+                throw e;
+            }
+
         }
 
         public bool CheckPin(String path, String pin)

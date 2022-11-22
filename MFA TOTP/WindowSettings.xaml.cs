@@ -3,9 +3,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MFA_TOTP
 {
@@ -107,32 +107,52 @@ namespace MFA_TOTP
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            // 1st try writing to current directory
-            bool writeFail = true;
+
+            String pin = this.TextBox_Pin.Text;
+            String path = this.TextBox_Path.Text;
+
             try
             {
-                String config = Path.Combine(Directory.GetCurrentDirectory(), "config.totp");
-                File.WriteAllText(config, _Key);
-                writeFail = false;
-            }catch(Exception ex) { }
-
-
-            // 2nd try writing to appdata
-            if (writeFail)
-            {
-                try
-                {
-                    String config = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp");
-                    File.WriteAllText(config, _Key);
-                }
-                catch (Exception ex) { }
+                new Tools().Write(Path.Combine(path, "config.totp"), pin, _Key);
             }
+            catch (Exception ex) {
+                MessageBox.Show("Error saving, choose another location");
+                ButtonSave_Click(sender, e);
+            }
+
+
+            //// 1st try writing to current directory
+            //bool writeFail = true;
+            //try
+            //{
+            //    new Tools().Write(Path.Combine(Directory.GetCurrentDirectory(), "config.totp"), pin, _Key);
+            //    writeFail = false;
+            //}catch(Exception ex) { }
+
+
+            //// 2nd try writing to appdata
+            //if (writeFail)
+            //{
+            //    try
+            //    {
+            //        new Tools().Write(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp"), pin, _Key);
+            //    }
+            //    catch (Exception ex) { }
+            //}
 
             WindowTOTP windowTOTP = new WindowTOTP(_Key);
             windowTOTP.Left = this.Left;
             windowTOTP.Top = this.Top;
             windowTOTP.Show();
             this.Close();
+        }
+
+        private void ButtonBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            CommonFileDialogResult result = dialog.ShowDialog();
+            this.TextBox_Path.Text = dialog.FileName;
         }
     }
 }

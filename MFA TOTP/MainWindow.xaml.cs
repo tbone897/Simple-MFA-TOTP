@@ -35,15 +35,19 @@ namespace MFA_TOTP
                     registryKey.SetValue("config", configFile);
                 }catch(Exception ex) { }
 
-                // Read file
-                String key = File.ReadAllText(configFile);
+                // Prompt for Pin
+                WindowPin windowPin = new WindowPin(configFile);
+                if (windowPin.ShowDialog() == true)
+                {
+                    String key = windowPin.GetKey(String.Empty);
 
-                // Open TOTP Window
-                WindowTOTP windowTOTP = new WindowTOTP(key);
-                windowTOTP.Left = this.Left;
-                windowTOTP.Top = this.Top;
-                windowTOTP.Show();
-                this.Close();
+                    // Open TOTP Window
+                    WindowTOTP windowTOTP = new WindowTOTP(key);
+                    windowTOTP.Left = this.Left;
+                    windowTOTP.Top = this.Top;
+                    windowTOTP.Show();
+                    this.Close();
+                }
             }
         }
 
