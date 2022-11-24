@@ -27,22 +27,19 @@
             <TextBlock>6. Click copy icon for Secret Key</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <Label VerticalAlignment="Center">Paste Secrect Key Here:</Label>
-                <TextBox Name="TextBox_SecretKey" VerticalAlignment="Center" Width="200" Margin="5" KeyUp="TextBox_SecretKey_KeyUp" MouseUp="TextBox_SecretKey_MouseUp" />
+                <TextBox Name="TextBox_SecretKey" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5" KeyUp="TextBox_SecretKey_KeyUp" MouseUp="TextBox_SecretKey_MouseUp" />
             </StackPanel>
             <TextBlock>7. Click Next</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center">8. Use this code when asked to enter code:</TextBlock>
-                <TextBox Name="TextBox_TOTPCode" VerticalAlignment="Center" Width="200" Margin="5"/>
+                <TextBox Name="TextBox_TOTPCode" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5"/>
                 <Label Name="Label1"></Label>
                 <Button x:Name="ButtonCopy" Click="ButtonCopy_Click" Padding="5,0,5,0">Copy</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label VerticalAlignment="Center">Pin</Label>
-                <TextBox x:Name="TextBox_Pin" Width="50" Margin="5"></TextBox>
-                <Label VerticalAlignment="Center">Path</Label>
-                <TextBox x:Name="TextBox_Path" Width="150" Margin="5"/>
-                <Button x:Name="ButtonBrowse"  Margin="10" Click="ButtonBrowse_Click"  >Browse</Button>
-                <Button x:Name="ButtonSave"  Margin="10" Click="ButtonSave_Click" >Save</Button>
+                <TextBox x:Name="TextBox_Pin" VerticalContentAlignment="Center" Width="50" Margin="5" KeyDown="TextBox_Pin_KeyDown" ></TextBox>
+                <Button x:Name="ButtonSave" IsEnabled="{Binding ElementName=TextBox_Pin,Path=Text.Length}" Margin="10" Padding="5,0,5,0" Click="ButtonSave_Click">Save</Button>
             </StackPanel>
         
         </StackPanel>

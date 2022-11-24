@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-
+using System.Windows.Input;
 
 namespace MFA_TOTP
 {
@@ -10,6 +10,8 @@ namespace MFA_TOTP
     public partial class WindowPin : Window
     {
         private static String _Path { get; set; }
+        public String _Key { get; set; }
+        public String _Pin { get; set; }
 
         public WindowPin(String path)
         {
@@ -17,27 +19,29 @@ namespace MFA_TOTP
             _Path = path;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TextBox_Pin_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            GetKey(this.TextBox_Pin.Text);
-            this.Close();
+            if (e.Key == Key.Return)
+            {
+                Button_Click(sender, e);
+            }
         }
 
-        internal string GetKey(String pin)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            String pin = this.TextBox_Pin.Text;
             bool isPinValid = new Tools().CheckPin(_Path, pin);
-            if (isPinValid == false)
+            if (isPinValid)
+            {
+                _Key = new Tools().GetKey(_Path, pin);
+                _Pin = pin;
+                Window.GetWindow(this).DialogResult = true;
+                Window.GetWindow(this).Close();
+            }else
             {
                 this.TextBlock_Status.Text = "Invalid Pin";
                 this.TextBox_Pin.Text = String.Empty;
-                return null;
             }
-            else
-            {
-                String key = new Tools().GetKey(_Path, pin);
-                return key;
-            }            
         }
     }
 }

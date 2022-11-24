@@ -12,9 +12,12 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Click="MenuItem_ClickOpen"  />
+                <MenuItem Header="_New" Click="MenuItem_ClickNew"  />
                 <MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
             </MenuItem>
-            <MenuItem Header="_Settings" Click="MenuItem_ClickSettings"/>
+            <MenuItem Header="_Options">
+                <MenuItem Header="_Copy To USB Drive" Click="MenuItem_ClickCopy"  />
+            </MenuItem>
             <MenuItem Header="_About" Click="MenuItem_ClickAbout"/>
         </Menu>
 

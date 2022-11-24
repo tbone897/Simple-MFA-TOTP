@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.IO;
 using System.Windows;
 
 
@@ -39,13 +38,14 @@ namespace MFA_TOTP
                 WindowPin windowPin = new WindowPin(configFile);
                 if (windowPin.ShowDialog() == true)
                 {
-                    String key = windowPin.GetKey(String.Empty);
+                    String key = windowPin._Key;
 
                     // Open TOTP Window
                     WindowTOTP windowTOTP = new WindowTOTP(key);
                     windowTOTP.Left = this.Left;
                     windowTOTP.Top = this.Top;
                     windowTOTP.Show();
+
                     this.Close();
                 }
             }
@@ -55,8 +55,11 @@ namespace MFA_TOTP
         {
             WindowSettings windowSettings= new WindowSettings();
             windowSettings.Owner= this;
-            windowSettings.ShowDialog();
-            this.Close();
+            bool? result = windowSettings.ShowDialog();
+            if (result == true)
+            {
+                this.Close();
+            }            
         }
     }
 }

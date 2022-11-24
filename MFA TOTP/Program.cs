@@ -1,50 +1,73 @@
-﻿//
-// How to make a single file application in WPF C# – Merging DLLs
-// https://www.devcoons.com/how-to-make-a-single-file-application-in-wpf-c-merging-dlls/
-//
-
+﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace MFA_TOTP
 {
+
     public class Program
     {
         [STAThread]
         public static void Main()
         {
-            var assemblies = new Dictionary<string, Assembly>();
-            var executingAssembly = Assembly.GetExecutingAssembly();
-            var resources = executingAssembly.GetManifestResourceNames().Where(n => n.EndsWith(".dll"));
+            // Check for config in application directory
+            string config_CurrentDir = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.totp", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            String config_AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp");
+            String config_Registry = null;
 
-            foreach (string resource in resources)
+            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("Software\\MFATOTP");
+            if (registryKey != null)
             {
-                using (var stream = executingAssembly.GetManifestResourceStream(resource))
+                try
                 {
-                    if (stream == null)
-                        continue;
-
-                    var bytes = new byte[stream.Length];
-                    stream.Read(bytes, 0, bytes.Length);
-                    try
-                    {
-                        assemblies.Add(resource, Assembly.Load(bytes));
-                    }
-                    catch (Exception)
-                    { }
+                    config_Registry = (String)registryKey.GetValue("config");
                 }
+                catch (Exception ex) { }
             }
 
-            AppDomain.CurrentDomain.AssemblyResolve += (s, e) =>
+            // First check Registry for file
+            if (File.Exists(config_Registry))
             {
-                var assemblyName = new AssemblyName(e.Name);
-                var path = string.Format("{0}.dll", assemblyName.Name);
-                return assemblies.ContainsKey(path) == true ? assemblies[path] : null;
-            };
+                ReadConfig(config_Registry);
+            }
 
-            App.Main();
+            // 2nd Check Current Directory
+            else if (File.Exists(config_CurrentDir))
+            {
+                ReadConfig(config_CurrentDir);
+            }
+
+            // 3rd Check AppData
+            else if (File.Exists(config_AppData))
+            {
+                ReadConfig(config_AppData);
+            }
+
+            // No Config, Show Welcome
+            else
+            {
+                App.Main();
+            }
+        }
+
+        private static void ReadConfig(String configFile)
+        {
+            WindowPin windowPin = new WindowPin(configFile);
+            bool? result = windowPin.ShowDialog();
+
+            if (result == true)
+            {
+                String key = windowPin._Key;
+
+                // Open TOTP Window
+                WindowTOTP windowTOTP = new WindowTOTP(key);
+                windowTOTP.ShowDialog();
+            }
+            else
+            {
+                App.Main();
+            }
         }
     }
 }

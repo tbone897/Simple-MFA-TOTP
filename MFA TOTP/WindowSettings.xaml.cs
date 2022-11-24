@@ -1,11 +1,10 @@
 ﻿using OtpNet;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.Win32;
 
 namespace MFA_TOTP
 {
@@ -31,7 +30,7 @@ namespace MFA_TOTP
 
         private void TextBox_SecretKey_KeyUp(object sender, KeyEventArgs e)
         {
-            timer1.Stop();            
+            timer1.Stop();
             this.StatusBar_TextBlock.Text = "";
             _Key = this.TextBox_SecretKey.Text;
             Start_TOTP(_Key);
@@ -50,20 +49,14 @@ namespace MFA_TOTP
         //
         private void Start_TOTP(String key)
         {
-            // Convert code to byte[]
-            byte[] secretKey = Base32Encoding.ToBytes(key);
-
             // Will fail if invalid key, Run in Try/Catch
             try
             {
+                // Convert code to byte[]
+                byte[] secretKey = Base32Encoding.ToBytes(key);
+
                 // Initilize Totp
                 totp = new Totp(secretKey, mode: OtpHashMode.Sha1, step: 30, totpSize: 6);
-
-                // Generate Code
-                var totpCode = totp.ComputeTotp();
-
-                // Set Code in TextBox
-                this.TextBox_TOTPCode.Text = totpCode;
 
                 // Start Timer to show how long code is valid for
                 timer1.Tick += new EventHandler(timer1_Tick);
@@ -71,7 +64,8 @@ namespace MFA_TOTP
                 timer1.Start();
                 this.Label1.Content = $"Valid for ${totp.RemainingSeconds().ToString()} Seconds";
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
 
             }
         }
@@ -81,18 +75,11 @@ namespace MFA_TOTP
         //
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // If 1 second or less on timer:
-            if (totp.RemainingSeconds() <= 1)
-            {
-                // Stop Timer
-                timer1.Stop();
+            // Generate Code
+            var totpCode = totp.ComputeTotp();
 
-                // Clear StatusBar Text
-                this.StatusBar_TextBlock.Text = "";
-
-                // Generate new code
-                Start_TOTP(_Key);
-            }
+            // Set Code in TextBox
+            this.TextBox_TOTPCode.Text = totpCode;
 
             // Update Valid Time
             this.Label1.Content = $"Valid for {totp.RemainingSeconds().ToString()} Seconds";
@@ -105,54 +92,40 @@ namespace MFA_TOTP
             Clipboard.SetText(totp.ComputeTotp(), TextDataFormat.Text);
         }
 
+        private void TextBox_Pin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Save();
+            }
+        }
+
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-
-            String pin = this.TextBox_Pin.Text;
-            String path = this.TextBox_Path.Text;
-
-            try
-            {
-                new Tools().Write(Path.Combine(path, "config.totp"), pin, _Key);
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Error saving, choose another location");
-                ButtonSave_Click(sender, e);
-            }
-
-
-            //// 1st try writing to current directory
-            //bool writeFail = true;
-            //try
-            //{
-            //    new Tools().Write(Path.Combine(Directory.GetCurrentDirectory(), "config.totp"), pin, _Key);
-            //    writeFail = false;
-            //}catch(Exception ex) { }
-
-
-            //// 2nd try writing to appdata
-            //if (writeFail)
-            //{
-            //    try
-            //    {
-            //        new Tools().Write(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp"), pin, _Key);
-            //    }
-            //    catch (Exception ex) { }
-            //}
-
-            WindowTOTP windowTOTP = new WindowTOTP(_Key);
-            windowTOTP.Left = this.Left;
-            windowTOTP.Top = this.Top;
-            windowTOTP.Show();
-            this.Close();
+            Save();
         }
 
-        private void ButtonBrowse_Click(object sender, RoutedEventArgs e)
+
+        private void Save()
         {
-            var dialog = new CommonOpenFileDialog();
-            dialog.IsFolderPicker = true;
-            CommonFileDialogResult result = dialog.ShowDialog();
-            this.TextBox_Path.Text = dialog.FileName;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "TOTP file (*.totp)|*.totp";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Write Config
+                new Tools().Write(saveFileDialog.FileName, this.TextBox_Pin.Text, _Key);
+
+                // Open TOTP Window
+                WindowTOTP windowTOTP = new WindowTOTP(_Key);
+                windowTOTP.Left = this.Left;
+                windowTOTP.Top = this.Top;
+                windowTOTP.Show();
+
+                // Close This Window
+                Window.GetWindow(this).DialogResult = true;
+                Window.GetWindow(this).Close();
+            }
         }
+
     }
 }
