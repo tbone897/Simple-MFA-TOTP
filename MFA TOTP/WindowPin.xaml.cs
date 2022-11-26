@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -7,7 +8,7 @@ namespace MFA_TOTP
     /// <summary>
     /// Interaction logic for WindowPin.xaml
     /// </summary>
-    public partial class WindowPin : Window
+    public partial class WindowPin : MetroWindow
     {
         private static String _Path { get; set; }
         public String _Key { get; set; }

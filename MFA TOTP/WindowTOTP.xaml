@@ -1,8 +1,9 @@
-﻿<Window x:Class="MFA_TOTP.WindowTOTP"
+﻿<mah:MetroWindow x:Class="MFA_TOTP.WindowTOTP"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MFA_TOTP"
         mc:Ignorable="d"
         Title="MFA TOTP" Icon="/IMages/clock-sec_0.png" ResizeMode="NoResize"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
@@ -31,8 +32,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-        
-            <Button x:Name="Button_TOTP" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Padding="10" FontSize="35" FontFamily="Dubai" ToolTip="Copied" Click="Button_TOTP_Click" >0123456789</Button>
+
+            <Button x:Name="Button_TOTP" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Padding="10" FontSize="35" FontFamily="Dubai" ToolTip="Copied" Click="Button_TOTP_Click" ></Button>
             <Label Name="Label1" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Label>
 
             <StatusBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -42,4 +43,4 @@
             </StatusBar>
         </Grid>
     </DockPanel>
-</Window>
+</mah:MetroWindow>

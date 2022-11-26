@@ -1,8 +1,9 @@
-﻿<Window x:Class="MFA_TOTP.MainWindow"
+﻿<mah:MetroWindow x:Class="MFA_TOTP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MFA_TOTP"
         mc:Ignorable="d"
         Title="MFA TOTP" SizeToContent="WidthAndHeight" Icon="/IMages/clock-sec_0.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
@@ -31,4 +32,4 @@
 
 
     </Grid>
-</Window>
+</mah:MetroWindow>

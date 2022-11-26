@@ -1,9 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using OtpNet;
 using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace MFA_TOTP
@@ -11,7 +12,7 @@ namespace MFA_TOTP
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class WindowTOTP : Window
+    public partial class WindowTOTP : MetroWindow
     {
         private DispatcherTimer timer1 = new DispatcherTimer();
         private Totp totp;

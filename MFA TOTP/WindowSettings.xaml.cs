@@ -5,13 +5,14 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using MahApps.Metro.Controls;
 
 namespace MFA_TOTP
 {
     /// <summary>
     /// Interaction logic for WindowSettings.xaml
     /// </summary>
-    public partial class WindowSettings : Window
+    public partial class WindowSettings : MetroWindow
     {
         private DispatcherTimer timer1 = new DispatcherTimer();
         private Totp totp;
@@ -114,6 +115,12 @@ namespace MFA_TOTP
             {
                 // Write Config
                 new Tools().Write(saveFileDialog.FileName, this.TextBox_Pin.Text, _Key);
+
+                // Save File in Registry
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("Software", true);
+                registryKey.CreateSubKey("MFATOTP");
+                registryKey = registryKey.OpenSubKey("MFATOTP", true);
+                registryKey.SetValue("config", saveFileDialog.FileName);
 
                 // Open TOTP Window
                 WindowTOTP windowTOTP = new WindowTOTP(_Key);

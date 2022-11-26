@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using System;
 using System.Windows;
+
 
 
 namespace MFA_TOTP
@@ -8,7 +10,7 @@ namespace MFA_TOTP
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
