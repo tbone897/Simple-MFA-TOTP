@@ -15,7 +15,8 @@ namespace MFA_TOTP
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            ThemeManager.Current.ChangeTheme(this, "Dark.Green");
+            ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
+            ThemeManager.Current.SyncTheme();
 
             // Check for config in application directory
             string config_CurrentDir = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.totp", SearchOption.TopDirectoryOnly).FirstOrDefault();

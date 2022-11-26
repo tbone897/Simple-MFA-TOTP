@@ -11,25 +11,28 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Background="AliceBlue" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" >Welcome</TextBlock>
-
-        <StackPanel Background="LightBlue" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2"/>
-        <Image Source="/IMages/open-file-icon.png" Grid.Row="1" Grid.Column="0"  Height="64" Width="64" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="20">
+            <Image Source="/Images/clock-sec_0.ico" Height="64" Width="64" VerticalAlignment="Center"/>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">MultiFactor Time-based one-time password </TextBlock>
+        </StackPanel>
+        
+        <Image Source="/IMages/open-file-icon.png" Grid.Row="1" Grid.Column="0"  Height="32" Width="32" Margin="10" HorizontalAlignment="Right"/>
         <Button x:Name="ButtonOpenFile" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Click="ButtonOpenFile_Click" >Open Existing Configuration</Button>
 
-        <StackPanel Background="Bisque" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Image Source="/IMages/folder_new.png" Grid.Row="2" Grid.Column="0"  Height="64" Width="64" HorizontalAlignment="Left"/>
+        
+        <Image Source="/IMages/folder_new.png" Grid.Row="2" Grid.Column="0"  Height="32" Width="32" Margin="10"  HorizontalAlignment="Right"/>
         <Button x:Name="ButtonNewConfig" Grid.Row="2" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Click="ButtonNewConfig_Click">Create New Configuration</Button>
 
-
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="8">Created by: Chris Thibeau</Label>
     </Grid>
 </mah:MetroWindow>

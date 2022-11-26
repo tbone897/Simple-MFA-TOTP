@@ -6,9 +6,10 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MFA_TOTP"
         mc:Ignorable="d"
-        Title="MFA TOTP" Icon="/IMages/clock-sec_0.png" ResizeMode="NoResize"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
-        Width="400" Height="400">
-    <DockPanel>
+        Title="MFA TOTP" Icon="/IMages/clock-sec_0.png" 
+        ResizeMode="NoResize"  SizeToContent="WidthAndHeight" 
+        WindowStartupLocation="CenterScreen">
+    <DockPanel >
 
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -22,7 +23,7 @@
             <MenuItem Header="_About" Click="MenuItem_ClickAbout"/>
         </Menu>
 
-        <Grid>
+        <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="20*"/>
@@ -37,8 +38,8 @@
             <Label Name="Label1" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Label>
 
             <StatusBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                <StatusBarItem>
-                    <TextBlock Name="StatusBar_TextBlock"></TextBlock>
+                <StatusBarItem HorizontalAlignment="Center">
+                    <TextBlock Name="StatusBar_TextBlock" HorizontalAlignment="Center"></TextBlock>
                 </StatusBarItem>
             </StatusBar>
         </Grid>

@@ -5,6 +5,7 @@ using OtpNet;
 using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace MFA_TOTP
@@ -17,10 +18,14 @@ namespace MFA_TOTP
         private DispatcherTimer timer1 = new DispatcherTimer();
         private Totp totp;
         private String _Key;
+        private Brush _DefaultColor;
+        private double _DefaultFontSize;
 
         public WindowTOTP(String key)
         {
             InitializeComponent();
+            _DefaultColor = this.Label1.Foreground;
+            _DefaultFontSize = this.Label1.FontSize;
             this._Key = key;
             Start_TOTP();
         }
@@ -62,7 +67,31 @@ namespace MFA_TOTP
             this.Button_TOTP.Content = totpCode;
 
             // Update Valid Time
-            this.Label1.Content = $"Valid for {totp.RemainingSeconds().ToString()} Seconds";
+            if ( (totp.RemainingSeconds() <= 10) && (totp.RemainingSeconds() > 5))
+            {
+                this.Label1.FontSize= _DefaultFontSize + 2;
+                this.Label1.FontWeight= FontWeights.Bold;
+                this.Label1.Foreground = new SolidColorBrush(Colors.DarkOrange);
+                this.Label1.Content = $"Valid for {totp.RemainingSeconds().ToString()} Seconds";
+            }
+            else if (totp.RemainingSeconds() <= 5)
+            {
+                this.Label1.FontSize = _DefaultFontSize + 4;
+                this.Label1.FontWeight = FontWeights.Bold;
+                this.Label1.Foreground = new SolidColorBrush(Colors.Red);
+                this.Label1.Content = $"Valid for {totp.RemainingSeconds().ToString()} Seconds";
+            }
+            else
+            {
+                String theme = ThemeManager.Current.ToString();
+
+
+                this.Label1.FontSize = _DefaultFontSize;
+                this.Label1.FontWeight = FontWeights.Normal;
+                this.Label1.Foreground = _DefaultColor;
+                this.Label1.Content = $"Valid for {totp.RemainingSeconds().ToString()} Seconds";
+            }
+            
         }
 
         //
@@ -70,7 +99,7 @@ namespace MFA_TOTP
         //
         private void Button_TOTP_Click(object sender, RoutedEventArgs e)
         {
-            this.StatusBar_TextBlock.Text = "Copied Code";
+            this.StatusBar_TextBlock.Text = "Code copied to clipboard";
             if (totp != null){
                 Clipboard.SetText(totp.ComputeTotp(), TextDataFormat.Text);
             }           

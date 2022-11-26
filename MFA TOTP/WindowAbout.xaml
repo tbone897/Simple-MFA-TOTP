@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MFA_TOTP"
         mc:Ignorable="d"
-        Title="About" Height="450" Width="800" WindowStartupLocation="CenterOwner">
+        Title="About" Height="100" Width="300" WindowStartupLocation="CenterOwner">
     <Grid>
         <TextBlock>MFA TOTP Created by: Chris Thibeau</TextBlock>
     </Grid>
