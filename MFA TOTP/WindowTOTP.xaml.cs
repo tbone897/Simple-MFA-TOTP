@@ -203,9 +203,13 @@ namespace MFA_TOTP
                 new Tools().Write(saveFileDialog.FileName, pin, key);
 
                 // Copy Exe
-                String exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                String saveDirectory = new FileInfo(saveFileDialog.FileName).DirectoryName;
-                File.Copy(exePath, Path.Combine(saveDirectory, new FileInfo(exePath).Name));
+                try
+                {
+                    String exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                    String saveDirectory = new FileInfo(saveFileDialog.FileName).DirectoryName;
+                    File.Copy(exePath, Path.Combine(saveDirectory, new FileInfo(exePath).Name));
+                }catch(Exception ex) { }
+
             }
         }
     }

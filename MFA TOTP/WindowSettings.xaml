@@ -6,49 +6,49 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MFA_TOTP"
         mc:Ignorable="d"
-        Title="WindowSettings" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <StackPanel  Grid.Row="0" Grid.Column="0" Margin="10">
-            <TextBlock>Instructions:</TextBlock>
-            <TextBlock>1. Open: <Hyperlink NavigateUri="https://mysignins.microsoft.com/security-info">Microsoft|My Sign-Ins</Hyperlink></TextBlock>
-            <TextBlock>2. Click 'Add sign-in method'</TextBlock>
-            <TextBlock>3. Select 'Authenmticator App'</TextBlock>
-            <TextBlock>4. Click 'I want to use a different authenticator app'</TextBlock>
-            <TextBlock>5. Click Next</TextBlock>
-            <TextBlock>6. Click 'Can't scan image?'</TextBlock>
-            <TextBlock>6. Click copy icon for Secret Key</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <Label VerticalAlignment="Center">Paste Secrect Key Here:</Label>
-                <TextBox Name="TextBox_SecretKey" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5" KeyUp="TextBox_SecretKey_KeyUp" MouseUp="TextBox_SecretKey_MouseUp" />
+        Title="New Configuration" Height="300" Width="400" WindowStartupLocation="CenterOwner">
+    <TabControl Name="TabControl" TabStripPlacement="Bottom">
+        <TabItem Header="   Step 1   ">
+            <StackPanel  Grid.Row="0" Grid.Column="0" Margin="10">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left">Instructions:</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="5"><Hyperlink Click="Hyperlink_Click_1">Video</Hyperlink></TextBlock>
+                    <Image Source="/Images/Youtube Icon (PNG240p) - Vector69Com.png" Height="12" Width="14" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="5"/>
+                    
+                </DockPanel>
+                
+                <TextBlock>1. Open: <Hyperlink Click="Hyperlink_Click">Microsoft|My Sign-Ins</Hyperlink></TextBlock>
+                <TextBlock>2. Click 'Add sign-in method'</TextBlock>
+                <TextBlock>3. Select 'Authenticator App'</TextBlock>
+                <TextBlock>4. Click 'I want to use a different authenticator app'</TextBlock>
+                <TextBlock>5. Click Next</TextBlock>
+                <TextBlock>6. Click 'Can't scan image?'</TextBlock>
+                <TextBlock>7. Click copy icon for Secret Key</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Paste Secrect Key Here:</Label>
+                    <TextBox Name="TextBox_SecretKey" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5" KeyUp="TextBox_SecretKey_KeyUp" MouseUp="TextBox_SecretKey_MouseUp" />
+                </StackPanel>
+                <Button Click="Button_Click">Next</Button>
             </StackPanel>
-            <TextBlock>7. Click Next</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center">8. Use this code when asked to enter code:</TextBlock>
-                <TextBox Name="TextBox_TOTPCode" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5"/>
-                <Label Name="Label1"></Label>
-                <Button x:Name="ButtonCopy" Click="ButtonCopy_Click" Padding="5,0,5,0">Copy</Button>
+        </TabItem>
+        <TabItem Header="   Step 2   ">
+            <StackPanel>
+                <TextBlock>7. Click next in browser</TextBlock>                
+                    <TextBlock VerticalAlignment="Center">8. Enter this code:</TextBlock>                    
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="TextBox_TOTPCode" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5"/>
+                    <Label Name="Label1"></Label>
+                    <Button x:Name="ButtonCopy" Click="ButtonCopy_Click" Margin="5">Copy</Button>
+                </StackPanel>
+                <Button Click="Button_Click">Next</Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label VerticalAlignment="Center">Pin</Label>
-                <TextBox x:Name="TextBox_Pin" VerticalContentAlignment="Center" Width="50" Margin="5" KeyDown="TextBox_Pin_KeyDown" ></TextBox>
+        </TabItem>
+        <TabItem Header="   Step 3   ">
+            <StackPanel>
+                <Label VerticalAlignment="Center">Create a PIN to secure configuration.</Label>
+                <TextBox x:Name="TextBox_Pin" VerticalContentAlignment="Center" Margin="5" KeyDown="TextBox_Pin_KeyDown" ></TextBox>
                 <Button x:Name="ButtonSave" IsEnabled="{Binding ElementName=TextBox_Pin,Path=Text.Length}" Margin="10" Padding="5,0,5,0" Click="ButtonSave_Click">Save</Button>
             </StackPanel>
-        
-        </StackPanel>
-        
-        <StatusBar Grid.Row="1" Grid.Column="0">
-            <StatusBarItem>
-                <TextBlock Name="StatusBar_TextBlock"></TextBlock>
-            </StatusBarItem>
-        </StatusBar>
-    </Grid>
+        </TabItem>
+    </TabControl>
 </mah:MetroWindow>

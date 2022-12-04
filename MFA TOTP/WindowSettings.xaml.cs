@@ -32,7 +32,6 @@ namespace MFA_TOTP
         private void TextBox_SecretKey_KeyUp(object sender, KeyEventArgs e)
         {
             timer1.Stop();
-            this.StatusBar_TextBlock.Text = "";
             _Key = this.TextBox_SecretKey.Text;
             Start_TOTP(_Key);
         }
@@ -40,7 +39,6 @@ namespace MFA_TOTP
         private void TextBox_SecretKey_MouseUp(object sender, MouseButtonEventArgs e)
         {
             timer1.Stop();
-            this.StatusBar_TextBlock.Text = "";
             _Key = this.TextBox_SecretKey.Text;
             Start_TOTP(_Key);
         }
@@ -88,9 +86,13 @@ namespace MFA_TOTP
 
         private void ButtonCopy_Click(object sender, RoutedEventArgs e)
         {
-            // Copy OTP code to clipboard
-            this.StatusBar_TextBlock.Text = "Copied Code";
-            Clipboard.SetText(totp.ComputeTotp(), TextDataFormat.Text);
+            try
+            {
+                // Copy OTP code to clipboard                
+                Clipboard.SetText(totp.ComputeTotp(), TextDataFormat.Text);
+            }
+            catch(Exception ex) { }
+            
         }
 
         private void TextBox_Pin_KeyDown(object sender, KeyEventArgs e)
@@ -134,5 +136,34 @@ namespace MFA_TOTP
             }
         }
 
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://mysignins.microsoft.com/security-info")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.TabControl.SelectedIndex == 0)
+            {
+                this.TabControl.SelectedIndex = 1;
+            }
+            else if (this.TabControl.SelectedIndex == 1)
+            {
+                this.TabControl.SelectedIndex = 2;
+            }
+        }
+
+        private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://youtu.be/ewNKMEOufsU")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
     }
 }

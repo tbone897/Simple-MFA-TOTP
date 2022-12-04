@@ -360,5 +360,8 @@
       <Version>4.3.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Youtube Icon %28PNG240p%29 - Vector69Com.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
