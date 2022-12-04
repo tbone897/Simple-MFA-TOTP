@@ -15,57 +15,66 @@ namespace MFA_TOTP
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
-            ThemeManager.Current.SyncTheme();
 
-            // Check for config in application directory
-            string config_CurrentDir = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.totp", SearchOption.TopDirectoryOnly).FirstOrDefault();
-            String config_AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp");
-            String config_Registry = null;
-
-            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("Software\\MFATOTP");
-            if (registryKey != null)
+            try
             {
-                try
+                ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
+                ThemeManager.Current.SyncTheme();
+
+                // Check for config in application directory
+                string config_CurrentDir = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.totp", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                String config_AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "config.totp");
+                String config_Registry = null;
+
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("Software\\MFATOTP");
+                if (registryKey != null)
                 {
-                    config_Registry = (String)registryKey.GetValue("config");
+                    try
+                    {
+                        config_Registry = (String)registryKey.GetValue("config");
+                    }
+                    catch (Exception ex) { }
                 }
-                catch (Exception ex) { }
+                String key = null;
+                MainWindow mainWindow = new MainWindow();
+
+                // First check Registry for file
+                if (File.Exists(config_Registry))
+                {
+                    key = ReadConfig(config_Registry);
+                }
+
+                // 2nd Check Current Directory
+                else if (File.Exists(config_CurrentDir))
+                {
+                    key = ReadConfig(config_CurrentDir);
+                }
+
+                // 3rd Check AppData
+                else if (File.Exists(config_AppData))
+                {
+                    key = ReadConfig(config_AppData);
+                }
+
+
+                if (String.IsNullOrEmpty(key))
+                {
+                    // No Config, Show Welcome                
+                    mainWindow.ShowDialog();
+                }
+                else
+                {
+                    // No Config, Show Welcome
+                    WindowTOTP windowTOTP = new WindowTOTP(key);
+                    windowTOTP.Show();
+                }
+                mainWindow.Close();
             }
-            String key = null;
-            MainWindow mainWindow = new MainWindow();
-
-            // First check Registry for file
-            if (File.Exists(config_Registry))
+            catch(Exception ex)
             {
-                key = ReadConfig(config_Registry);
+                MessageBox.Show("Oh No, An Error has occured :( This should never happen, but Please report to ct.thibeau@gmail.com", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            // 2nd Check Current Directory
-            else if (File.Exists(config_CurrentDir))
-            {
-                key = ReadConfig(config_CurrentDir);
-            }
-
-            // 3rd Check AppData
-            else if (File.Exists(config_AppData))
-            {
-                key = ReadConfig(config_AppData);
-            }
-
-
-            if (String.IsNullOrEmpty(key))
-            {
-                // No Config, Show Welcome                
-                mainWindow.ShowDialog();
-            } else
-            {
-                // No Config, Show Welcome
-                WindowTOTP windowTOTP = new WindowTOTP(key);
-                windowTOTP.Show();
-            }
-
-            mainWindow.Close();
+            
         }
 
         private String ReadConfig(String configFile)
