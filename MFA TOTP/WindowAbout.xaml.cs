@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using System.Diagnostics;
 
 namespace MFA_TOTP
 {
@@ -10,6 +11,42 @@ namespace MFA_TOTP
         public WindowAbout()
         {
             InitializeComponent();
+        }
+
+        private void Hyperlink_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://github.com/kspearrin/Otp.NET")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
+
+        private void HyperLink_TOTPClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://www.rfc-editor.org/rfc/rfc6238")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
+
+        private void HyperLink_MahApps(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://github.com/MahApps/MahApps.Metro")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
+
+        private void HyperLink_CosturaFody(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://github.com/Fody/Costura")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
         }
     }
 }

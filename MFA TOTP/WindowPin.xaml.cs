@@ -19,6 +19,7 @@ namespace MFA_TOTP
             InitializeComponent();
             _Path = path;
             this.TextBlock_Status.Text = $"Opening File: {_Path}";
+            TextBox_Pin.Focus();
         }
 
         private void TextBox_Pin_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

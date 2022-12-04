@@ -6,8 +6,35 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MFA_TOTP"
         mc:Ignorable="d"
-        Title="About" Height="100" Width="300" WindowStartupLocation="CenterOwner">
+        Title="About" SizeToContent="WidthAndHeight"  WindowStartupLocation="CenterOwner">
     <Grid>
-        <TextBlock>MFA TOTP Created by: Chris Thibeau</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Margin="20">An easy to use, portable desktop application for <Hyperlink Click="HyperLink_TOTPClick">TOTP (Timed One Time Password)</Hyperlink></TextBlock>
+
+        <TextBlock Grid.Row="2" Margin="10,0" >This app is compatible with TOTP using:</TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1" Padding="50,0,0,0">the Sha1 algorithm,</TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="1" Padding="50,0,0,0">30 second time step,</TextBlock>
+        <TextBlock Grid.Row="5" Grid.Column="1" Padding="50,0,0,0">and 6 character TOTP code.</TextBlock>
+
+        <TextBlock Grid.Row="6"/>
+        <TextBlock Grid.Row="7" Margin="10,0">Created by: Chris Thibeau</TextBlock>
+        <TextBlock Grid.Row="8" Margin="10,0">Built using <Hyperlink Click="Hyperlink_Click">Otp.Net</Hyperlink>, <Hyperlink Click="HyperLink_MahApps">MahApps.Metro</Hyperlink>, and <Hyperlink Click="HyperLink_CosturaFody">Costura.Fody</Hyperlink></TextBlock>
+        <TextBlock Grid.Row="9"/>
     </Grid>
 </mah:MetroWindow>
