@@ -149,6 +149,10 @@ namespace MFA_TOTP
         {
             if (this.TabControl.SelectedIndex == 0)
             {
+                timer1.Stop();
+                _Key = this.TextBox_SecretKey.Text;
+                Start_TOTP(_Key);
+
                 this.TabControl.SelectedIndex = 1;
             }
             else if (this.TabControl.SelectedIndex == 1)
@@ -165,5 +169,7 @@ namespace MFA_TOTP
             };
             Process.Start(sInfo);
         }
+
+
     }
 }

@@ -26,7 +26,7 @@
                 <TextBlock>7. Click copy icon for Secret Key</TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <Label VerticalAlignment="Center">Paste Secrect Key Here:</Label>
-                    <TextBox Name="TextBox_SecretKey" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5" KeyUp="TextBox_SecretKey_KeyUp" MouseUp="TextBox_SecretKey_MouseUp" />
+                    <TextBox Name="TextBox_SecretKey" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Margin="5" />
                 </StackPanel>
                 <Button Click="Button_Click">Next</Button>
             </StackPanel>
