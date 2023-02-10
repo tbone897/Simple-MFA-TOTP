@@ -14,12 +14,12 @@ This app is compatible with TOTP using:
 Instructions provided for Microsoft MFA:
 
 
-Step 1: Copy Code
+Step 1: Copy MFA Code from browser into desktop App
 
 
 ![image](https://user-images.githubusercontent.com/26629097/218107691-4763674c-7af6-4c4c-aff1-feb2539fa6f8.png)
 
-Step 2: Verify Code
+Step 2: Verify Code - Copy TOTP code from app into browser
 
 
 ![image](https://user-images.githubusercontent.com/26629097/218107715-5192bf31-44e3-4f2f-b35b-cf0ec7facab5.png)
