@@ -34,3 +34,6 @@ Step 3: Enter Pin and Save
 
 ![image](https://user-images.githubusercontent.com/26629097/218108250-193a20c8-d77d-4a44-9bba-91175d1b125c.png)
 
+
+## Download
+https://github.com/tbone897/Simple-MFA-TOTP/releases/tag/Production
