@@ -7,7 +7,7 @@ This app is compatible with TOTP using:
  - 30 second time step
  - and 6 character TOTP code.
  
- Based onm OTP.Net 
+ Based on OTP.Net 
  
 ## Configuration:
 
