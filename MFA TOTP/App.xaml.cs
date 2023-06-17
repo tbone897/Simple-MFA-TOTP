@@ -4,18 +4,59 @@ using System;
 using System.Windows;
 using System.Linq;
 using ControlzEx.Theming;
+using AutoUpdaterDotNET;
+using System.Net;
+using System.Windows.Forms;
 
 namespace MFA_TOTP
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Update Check
+            AutoUpdater.RunUpdateAsAdmin = false;
+            AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+            AutoUpdater.Start("https://raw.githubusercontent.com/tbone897/Simple-MFA-TOTP/master/Autoupdate/Versions.xml");
+        }
 
+        private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if (args.Error == null)
+            {
+                if (args.IsUpdateAvailable)
+                {
+                    AutoUpdater.ShowUpdateForm(args);
+                }
+                else
+                {
+                    // No Update, Start App
+                    StartApp();
+                }
+            }
+            else
+            {
+                if (args.Error is WebException)
+                {
+                    System.Windows.Forms.MessageBox.Show(
+                        @"There is a problem reaching update server. Please check your internet connection and try again later.",
+                        @"Update Check Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show(args.Error.Message,
+                        args.Error.GetType().ToString(), MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void StartApp()
+        {
             try
             {
                 ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
@@ -70,11 +111,10 @@ namespace MFA_TOTP
                 }
                 mainWindow.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Oh No, An Error has occured :( This should never happen, but Please report to ct.thibeau@gmail.com", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.Forms.MessageBox.Show("Oh No, An Error has occured :( This should never happen, but Please report to ct.thibeau@gmail.com", "Error", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Error);
             }
-            
         }
 
         private String ReadConfig(String configFile)

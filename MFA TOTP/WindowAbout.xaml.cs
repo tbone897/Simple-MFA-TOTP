@@ -1,5 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System.Diagnostics;
+using System.Reflection;
+using System;
 
 namespace MFA_TOTP
 {
@@ -11,6 +13,7 @@ namespace MFA_TOTP
         public WindowAbout()
         {
             InitializeComponent();
+            this.Version.Text = getRunningVersion();
         }
 
         private void Hyperlink_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -48,5 +51,12 @@ namespace MFA_TOTP
             };
             Process.Start(sInfo);
         }
+
+        private String getRunningVersion()
+        {
+            return "Version:  " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
+
     }
 }

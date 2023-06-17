@@ -23,6 +23,8 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Margin="20">An easy to use, portable desktop application for <Hyperlink Click="HyperLink_TOTPClick">TOTP (Timed One Time Password)</Hyperlink></TextBlock>
@@ -35,6 +37,9 @@
         <TextBlock Grid.Row="6"/>
         <TextBlock Grid.Row="7" Margin="10,0">Created by: Chris Thibeau</TextBlock>
         <TextBlock Grid.Row="8" Margin="10,0">Built using <Hyperlink Click="Hyperlink_Click">Otp.Net</Hyperlink>, <Hyperlink Click="HyperLink_MahApps">MahApps.Metro</Hyperlink>, and <Hyperlink Click="HyperLink_CosturaFody">Costura.Fody</Hyperlink></TextBlock>
+
         <TextBlock Grid.Row="9"/>
+        <TextBlock Grid.Row="10" Margin="10,0" Name="Version"/>
+        <TextBlock Grid.Row="11"/>
     </Grid>
 </mah:MetroWindow>
