@@ -22,37 +22,20 @@ namespace MFA_TOTP
             AutoUpdater.RunUpdateAsAdmin = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             AutoUpdater.Start("https://raw.githubusercontent.com/tbone897/Simple-MFA-TOTP/master/Autoupdate/Versions.xml");
+
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
         {
-            if (args.Error == null)
+            if (args.IsUpdateAvailable)
             {
-                if (args.IsUpdateAvailable)
-                {
-                    AutoUpdater.ShowUpdateForm(args);
-                }
-                else
-                {
-                    // No Update, Start App
-                    StartApp();
-                }
+                AutoUpdater.ShowUpdateForm(args);
             }
             else
             {
-                if (args.Error is WebException)
-                {
-                    System.Windows.Forms.MessageBox.Show(
-                        @"There is a problem reaching update server. Please check your internet connection and try again later.",
-                        @"Update Check Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    System.Windows.Forms.MessageBox.Show(args.Error.Message,
-                        args.Error.GetType().ToString(), MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
+                // No Update, Start App
+                StartApp();
+            }            
         }
 
         private void StartApp()
