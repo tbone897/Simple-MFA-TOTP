@@ -5,7 +5,6 @@ using System.Windows;
 using System.Linq;
 using ControlzEx.Theming;
 using AutoUpdaterDotNET;
-using System.Net;
 using System.Windows.Forms;
 
 namespace MFA_TOTP
@@ -22,7 +21,6 @@ namespace MFA_TOTP
             AutoUpdater.RunUpdateAsAdmin = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             AutoUpdater.Start("https://raw.githubusercontent.com/tbone897/Simple-MFA-TOTP/master/Autoupdate/Versions.xml");
-
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
@@ -30,6 +28,7 @@ namespace MFA_TOTP
             if (args.IsUpdateAvailable)
             {
                 AutoUpdater.ShowUpdateForm(args);
+                System.Windows.Application.Current.Shutdown();
             }
             else
             {
